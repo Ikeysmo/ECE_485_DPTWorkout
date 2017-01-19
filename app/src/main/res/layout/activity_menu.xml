@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="ncsu.ece463.project24.dptworkout.MenuActivity">
+
+    <ImageView
+        android:layout_width="150sp"
+        android:layout_height="150sp"
+        app:srcCompat="@drawable/workout_bike"
+        android:id="@+id/imageView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="53dp" />
+
+    <TextView
+        android:text="Welcome to DPT Workout! Begin working out below or view your workout history!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:id="@+id/textView5" />
+
+    <Button
+        android:text="Edit Workout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/editWorkoutButton"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/continueWorkoutButton"
+        android:layout_centerHorizontal="true"
+        android:onClick="editWorkout" />
+
+    <Button
+        android:text="Workout Log"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/workoutLog"
+        android:onClick="workoutLog"
+        android:layout_below="@+id/editWorkoutButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
+
+    <Button
+        android:text="Options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/optionsButton"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/workoutLog"
+        android:layout_centerHorizontal="true"
+        android:onClick="gotoOptions" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/selectWorkout"
+        android:layout_below="@+id/textView12"
+        android:layout_marginTop="10dp"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Select your workout below to continue workout!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageView"
+        android:layout_marginTop="15dp"
+        android:id="@+id/textView12"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="Continue Workout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/continueWorkoutButton"
+        android:background="@color/colorAccent"
+        android:paddingLeft="10sp"
+        android:paddingRight="10sp"
+        android:onClick="openContinueWorkout"
+        android:layout_marginTop="10dp"
+        android:clickable="false"
+        android:layout_below="@+id/selectWorkout"
+        android:layout_alignEnd="@+id/imageView" />
+
+
+</RelativeLayout>

@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">DPTWorkout</string>
+    <string name="title_activity_pair">PairActivity</string>
+    <string name="title_activity_options">OptionsActivity</string>
+</resources>
