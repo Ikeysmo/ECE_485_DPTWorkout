@@ -13,34 +13,74 @@
     tools:context="ncsu.ece463.project24.dptworkout.OptionsActivity"
     tools:showIn="@layout/activity_options">
 
-    <TextView
-        android:text="Edit options here"
+    <Button
+        android:text="Save!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="12dp"
-        android:id="@+id/textView13" />
+        android:layout_marginBottom="95dp"
+        android:id="@+id/optionSave"
+        android:onClick="setIPAddress"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorAccent" />
 
     <TextView
-        android:text="Set ip address..."
+        android:text="Edit options here such as the IP address in order connect to the proper server!"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView13"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="11dp"
-        android:layout_marginTop="43dp"
-        android:id="@+id/textView14" />
+        android:layout_marginTop="12dp"
+        android:id="@+id/textView13"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="24sp"
+        android:textStyle="normal|bold"
+        android:textColor="@color/DarkRed" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="IP Address"
         android:ems="10"
+        android:layout_marginTop="14dp"
+        android:id="@+id/ipAddressField"
+        android:hint="Enter IP Address..."
         android:layout_below="@+id/textView14"
-        android:layout_alignStart="@+id/textView13"
-        android:layout_marginTop="31dp"
-        android:id="@+id/editText2" />
+        android:layout_alignParentStart="true"
+        android:selectAllOnFocus="true" />
+
+    <ToggleButton
+        android:text="ToggleButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView13"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/toggleButton" />
+
+    <TextView
+        android:text="Audio Feedback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/toggleButton"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp"
+        android:id="@+id/textView16"
+        android:layout_alignBottom="@+id/toggleButton"
+        android:textSize="18sp" />
+
+    <TextView
+        android:text="Sets the IP Address!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        android:id="@+id/textView14"
+        android:textSize="18sp"
+        android:textStyle="normal|bold"
+        android:layout_below="@+id/textView16"
+        android:layout_alignParentStart="true"
+        android:textColor="@color/DarkRed" />
+    <!--/>-->
+        <!---->
+        <!--android:focusableInTouchMode="false" -->
+
 </RelativeLayout>

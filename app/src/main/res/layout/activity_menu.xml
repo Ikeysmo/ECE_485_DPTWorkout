@@ -19,20 +19,12 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="53dp" />
 
-    <TextView
-        android:text="Welcome to DPT Workout! Begin working out below or view your workout history!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView5" />
-
     <Button
         android:text="Edit Workout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/editWorkoutButton"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/continueWorkoutButton"
         android:layout_centerHorizontal="true"
         android:onClick="editWorkout" />
@@ -45,14 +37,14 @@
         android:onClick="workoutLog"
         android:layout_below="@+id/editWorkoutButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp" />
+        android:layout_marginTop="20dp" />
 
     <Button
         android:text="Options"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/optionsButton"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:layout_below="@+id/workoutLog"
         android:layout_centerHorizontal="true"
         android:onClick="gotoOptions" />
@@ -63,6 +55,7 @@
         android:id="@+id/selectWorkout"
         android:layout_below="@+id/textView12"
         android:layout_marginTop="10dp"
+        android:entries="@array/Workout_List"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -73,21 +66,36 @@
         android:layout_marginTop="15dp"
         android:id="@+id/textView12"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:textColor="@color/DarkRed"
+        android:textStyle="normal|bold" />
+
+    <TextView
+        android:text="Welcome to DPT Workout! Begin working out below or view your workout history!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView5"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textStyle="normal|bold"
+        android:textColor="@android:color/black" />
 
     <Button
-        android:text="Continue Workout"
+        android:text="Start Workout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/continueWorkoutButton"
         android:background="@color/colorAccent"
-        android:paddingLeft="10sp"
-        android:paddingRight="10sp"
+        android:paddingLeft="5sp"
+        android:paddingRight="5sp"
+        android:paddingBottom="0sp"
+        android:paddingTop="0sp"
         android:onClick="openContinueWorkout"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="26dp"
         android:clickable="false"
         android:layout_below="@+id/selectWorkout"
-        android:layout_alignEnd="@+id/imageView" />
+        android:layout_centerHorizontal="true"
+        android:elevation="0dp" />
 
 
 </RelativeLayout>
