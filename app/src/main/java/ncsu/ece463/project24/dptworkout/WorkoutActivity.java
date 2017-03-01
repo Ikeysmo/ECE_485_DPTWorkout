@@ -1,5 +1,6 @@
 package ncsu.ece463.project24.dptworkout;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.MediaPlayer;
@@ -22,11 +23,16 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Date;
+/*
+Description: Heart of the app, user workouts are used here
+Author: Isaiah Smoak
+ */
 
 public class WorkoutActivity extends AppCompatActivity implements Runnable {
 
-    private int seconds = 0;
-    private boolean running = false;
+    private int seconds = 0; //time for workout
+    private boolean running = false; //if workout is paused or running
     DataInputStream dis;
     DataOutputStream dos;
     MediaPlayer[] audiofiles;
@@ -34,54 +40,48 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
     private static final int CALIBRATING = 1;
     private final static int TRY_AGAIN = 2;
     private final static int GOOD_JOB = 3;
-    private int currSet;
-    private int currReps;
-    private Exercise currExercise;
-    private Workout currWorkout;
+    private int currSet; //current set in workout
+    private int currReps; //current rep in workout
+    private Exercise currExercise; //current excercise in workout
+    private Workout currWorkout; //current workout selected
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
-        try {
+        try { //reads the workout from string (which will be a file)
             currWorkout = Workout.getWorkout((JSONObject) new JSONTokener(MenuActivity.tempHolder).nextValue());
             System.out.println(currWorkout);
         }
         catch (JSONException je){je.printStackTrace();} //need to handle this!!
-        //set up connection to kinect and bluetooth
-        TextView tv = (TextView) findViewById(R.id.textView10);
-        tv.setText(String.valueOf(currWorkout.exercises.elementAt(0).totalSets));
-        TextView tv1 = (TextView) findViewById(R.id.textView6);
-        tv1.setText(String.valueOf(currWorkout.exercises.elementAt(0).totalReps));
 
-        new Thread(this).start(); // handles the receive
-        runTimer();
+        //initialize the GUI to proper sets, reps and time
+        TextView setCounter = (TextView) findViewById(R.id.textView10);
+        setCounter.setText(String.valueOf(currWorkout.exercises.elementAt(0).totalSets));
+        TextView repCounter = (TextView) findViewById(R.id.textView6);
+        repCounter.setText(String.valueOf(currWorkout.exercises.elementAt(0).totalReps));
+
+        new Thread(this).start(); // starts the thread that handles the workout
+        runTimer(); //begin timer to count down
     }
 
-    public void startWorkout(View view) { //begin timer and waiting for connection
-        Button d = (Button) view.findViewById(R.id.startWorkout);
+    public void startWorkout(View view) { //upon button pressed: starts or resumes the workout
+        Button startStopButton = (Button) view.findViewById(R.id.startWorkout);
         if (running) {
-            d.setText("Start!");
-            d.setBackgroundColor(Color.GREEN);
+            startStopButton.setText("Start!");
+            startStopButton.setBackgroundColor(Color.GREEN);
             running = false;
         } else {
-            d.setText("Stop!");
-            d.setBackgroundColor(Color.RED);
+            startStopButton.setText("Stop!");
+            startStopButton.setBackgroundColor(Color.RED);
             running = true;
         }
-
-        Log.d("DEBUG", "WAHADDIDH");
-
-        //d.setBackgroundColor(Color.RED);
-        //view.invalidate();
-        d.invalidate();
-
+        startStopButton.invalidate();
     }
 
     private void runTimer() { //issue with the timer is that it only checks every second. Meaning at most 1 sec lag, not instantaneous
         final TextView timeView = (TextView) findViewById(R.id.timeText);
         final Handler handler = new Handler();
-
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -92,17 +92,6 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                 if (running) {
                     seconds++;
                 }
-                /*new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            if(dos != null)
-                                dos.write("Bicep Curls".getBytes("UTF-8"));
-                        }
-                        catch (IOException d){;}
-                    }
-                }).start();*/
-
                 handler.postDelayed(this, 1000);
             }
         });
@@ -116,13 +105,13 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
         audiofiles[CALIBRATING] = MediaPlayer.create(this, R.raw.calibrating);
         audiofiles[TRY_AGAIN] = MediaPlayer.create(this, R.raw.try_again);
         audiofiles[GOOD_JOB] = MediaPlayer.create(this, R.raw.good_job);
-        try {
+        try { //connect to server
             Socket clientSocket = new Socket();
             clientSocket.connect(new InetSocketAddress(OptionsActivity.IPAddress, 11000), 500); //see if this works?
             dos = new DataOutputStream(clientSocket.getOutputStream());
             dis = new DataInputStream(clientSocket.getInputStream());
             //dos.write("Bicep Curls".getBytes("UTF-8"));
-        } catch (IOException ie) {
+        } catch (IOException ie) { //was unable to connect. Send error and handle appropriately
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -131,8 +120,8 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
             });
             return;
         }
-        byte[] input = new byte[100];
-        String resp = "";
+        byte[] input = new byte[100]; //array for socket receiving (doesn't expect more than 50 bytes)
+        String response = "";
         try {
             for(int i = 0; i < currWorkout.exercises.size(); i++) {
                 //send workout
@@ -140,83 +129,107 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        TextView tv3 = (TextView) findViewById(R.id.textView9);
-                        tv3.setText(currExercise.name);
-                        TextView tv4 = (TextView) findViewById(R.id.textView6);
-                        tv4.setText(String.valueOf(currExercise.totalReps));
-                        TextView tv5 = (TextView) findViewById(R.id.textView10);
-                        tv5.setText(String.valueOf(currExercise.totalSets));
+                        TextView excerciseName = (TextView) findViewById(R.id.textView9);
+                        excerciseName.setText(currExercise.name);
+                        TextView currentRep = (TextView) findViewById(R.id.textView6);
+                        currentRep.setText(String.valueOf(currExercise.totalReps));
+                        TextView currentSet = (TextView) findViewById(R.id.textView10);
+                        currentSet.setText(String.valueOf(currExercise.totalSets));
                     }
                 });
                 dos.write(currWorkout.exercises.elementAt(i).name.getBytes()); //send name of workout
                 dos.write("start".getBytes());
                 Log.d("DEBUG", "DOING WORKOUT: " + currExercise.name);
-                //int rd = dis.read(input); //wait for OK or something
-
+                //int rd = dis.read(input); //wait for OK or confirmation
                 currSet = currExercise.totalSets;
                 currReps = currExercise.totalReps;
 
                 while ( currSet > 0) { //while not yet zero
-                    int rd = dis.read(input);
+                    int readAmount = dis.read(input);
                     if (!running)
-                        continue; //ignore the input here!
-                    resp = "";
-                    for (int j = 0; j < rd; j++) {
-                        resp += (char) input[j];
+                        continue; //ignore the input here and await next command
+                    response = "";
+                    //convert the bytes into a string
+                    for (int j = 0; j < readAmount; j++) {
+                        response += (char) input[j];
                     }
-                    Log.d("DEBUG", "RECV: " + resp);
-                    if (resp.equalsIgnoreCase("ERROR") || resp.equalsIgnoreCase("INCORRECT")) {
-                        //handle it
-                        currWorkout.exercises.elementAt(i).errors++;
-                        runOnUiThread(new Runnable() {
+                    Log.d("DEBUG", "RECV: " + response);
+                    //make decisions on what was received
+                    if (response.equalsIgnoreCase("ERROR") || response.equalsIgnoreCase("INCORRECT")) {
+                        //handle it like a boss!
+                        currWorkout.exercises.elementAt(i).errors++; //increment error counter!
+                        runOnUiThread(new Runnable() { //update GUI to reflect new state
                             @Override
                             public void run() {
                                 View view = (View) findViewById(R.id.activity_workout);
-                                TextView error = (TextView) findViewById(R.id.textView8);
+                                TextView errorCounter = (TextView) findViewById(R.id.textView8);
                                 view.setBackgroundColor(getResources().getColor(R.color.DarkRed));
-                                error.setText(String.valueOf(Integer.parseInt(error.getText().toString()) + 1));
+                                errorCounter.setText(String.valueOf(Integer.parseInt(errorCounter.getText().toString()) + 1));
                             }
                         });
-                        audiofiles[TRY_AGAIN].start(); //play try again
-                    } else if (resp.equalsIgnoreCase("CORRECT")) { //increment counter
-                        currReps--; //decrement
+                        audiofiles[TRY_AGAIN].start(); //play try again through speakers
+                    } else if (response.equalsIgnoreCase("CORRECT")) { //increment counter
+                        --currReps; //decrement
+                        if(currReps <= 0)
+                            --currSet;
                         //play sound here
-                        if (((int) (Math.random() * 2)) == 0)
+                        if (((int) (Math.random() * 2)) == 0) //50% chance on saying either correct or good job
                             audiofiles[CORRECT].start();
                         else
                             audiofiles[GOOD_JOB].start();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(currReps <= 0) { //reset the reps and currSet
-                                    currSet--;
-                                    if(currSet != 0)
+//                                if(currReps <= 0) { //reset the reps and decrement currSet
+//                                    //if currset == 0
+//                                   --currSet;
+                                if(currReps <= 0) {
+                                    if (currSet > 0) //done with reps but more sets
                                         currReps = currExercise.totalReps;
-                                    Log.d("DEBUG", "NEW SET, GOING AT IT");
+                                    //Log.d("DEBUG", "NEW SET, GOING AT IT");
                                 }
+                                //}
                                 View view = (View) findViewById(R.id.activity_workout);
                                 view.setBackgroundColor(getResources().getColor(R.color.LightBlue));
-                                TextView tv = (TextView) findViewById(R.id.textView10);
-                                tv.setText(String.valueOf(currSet));
-                                TextView tv2 = (TextView) findViewById(R.id.textView6);
-                                tv2.setText(String.valueOf(currReps));
+                                TextView setCounter = (TextView) findViewById(R.id.textView10);
+                                setCounter.setText(String.valueOf(currSet));
+                                TextView repCounter = (TextView) findViewById(R.id.textView6);
+                                repCounter.setText(String.valueOf(currReps));
                             }
-                        }); //I'm hoping runonUIthread executes before while loop continues
+                        }); //does runonUIthread executes before while loop continues??
                     }
+
                 }
             }
-            dos.write("stop".getBytes());
+            dos.write("stop".getBytes()); //write stop to prevent kinect to keep sending info
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(WorkoutActivity.this, "Finished workout! Exit and return to menu!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(WorkoutActivity.this, "Great workout! Returning to menu!", Toast.LENGTH_LONG).show();
                     View view = (View) findViewById(R.id.activity_workout);
                     view.setBackgroundColor(Color.parseColor("#aaaaaa"));
-                    TextView tv = (TextView) findViewById(R.id.textView10);
-                    tv.setText(String.valueOf(0));
-                    TextView tv2 = (TextView) findViewById(R.id.textView6);
-                    tv2.setText(String.valueOf(0));
+                    //save workout!
+                    try {
+                        currWorkout.date = new Date().getTime();
+                        Workout.saveWorkout(currWorkout, getApplicationContext());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (ClassNotFoundException e) { //file corrupted!
+                        e.printStackTrace();
+                    }
+                    TextView setCounter = (TextView) findViewById(R.id.textView10);
+                    setCounter.setText(String.valueOf(0)); //set everything to 0
+                    TextView repCounter = (TextView) findViewById(R.id.textView6);
+                    repCounter.setText(String.valueOf(0)); //set everything to 0
                     //eventually want to try to reconnect!
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                            getApplicationContext().startActivity(intent);
+                        }
+                    }, 2000);
                 }
             });
         } catch (IOException e) {

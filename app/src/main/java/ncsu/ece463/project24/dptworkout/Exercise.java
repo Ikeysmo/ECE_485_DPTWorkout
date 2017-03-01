@@ -3,13 +3,16 @@ package ncsu.ece463.project24.dptworkout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-/**
- * Created by Ikeys on 1/21/2017.
+import java.io.Serializable;
+
+/*
+Description: This is a data structure for containing individual workouts such as squats or pushups
+Author: Isaiah Smoak
  */
 
-public class Exercise { //make a text file for default workouts!
-    public String name;
-    public String instructions; //
+public class Exercise implements Serializable{ //make a text file for default workouts!
+    public String name; //name of Exercise
+    public String instructions; //instructions for the workout routine
     public int totalSets;
     public int totalReps;
     public int totalSecs = 0; //if not zero, then timer counts from value

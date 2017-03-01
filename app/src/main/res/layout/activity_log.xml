@@ -10,42 +10,59 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ncsu.ece463.project24.dptworkout.LogActivity">
 
-    <TextView
+
+
+    <!--<TextView-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="Selected workout for January 2017"-->
+        <!--android:id="@+id/plainText"-->
+       <!--/>-->
+
+
+    <!--&lt;!&ndash;<com.jjoe64.graphview.GraphView&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_height="300dip"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:id="@+id/graph"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_alignTop="@+id/plainText"&ndash;&gt;-->
+        <!--&lt;!&ndash;android:layout_marginTop="35dp"&ndash;&gt;-->
+        <!--&lt;!&ndash;/>&ndash;&gt;-->
+
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:id="@+id/selectMonth"-->
+        <!--android:layout_below="@+id/graph"-->
+        <!--android:layout_marginTop="60dp"-->
+        <!--android:ems="10"-->
+        <!--android:text="Month:"/>-->
+
+    <!--<Spinner-->
+        <!--android:layout_width="200sp"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:entries="@array/Months"-->
+        <!--android:layout_alignLeft="@+id/selectMonth"-->
+        <!--android:layout_marginLeft="160dp"-->
+        <!--android:layout_below="@+id/graph"-->
+        <!--android:layout_marginTop="57dp"-->
+    <!--/>-->
+
+
+
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Selected workout for January 2017"
-        android:id="@+id/plainText"
-       />
+        android:layout_height="match_parent">
 
 
-    <com.jjoe64.graphview.GraphView
-        android:layout_width="match_parent"
-        android:layout_height="300dip"
-        android:id="@+id/graph"
-        android:layout_alignTop="@+id/plainText"
-        android:layout_marginTop="35dp"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/selectMonth"
-        android:layout_below="@+id/graph"
-        android:layout_marginTop="60dp"
-        android:ems="10"
-        android:text="Month:"/>
-
-    <Spinner
-        android:layout_width="200sp"
-        android:layout_height="wrap_content"
-        android:entries="@array/Months"
-        android:layout_alignLeft="@+id/selectMonth"
-        android:layout_marginLeft="160dp"
-        android:layout_below="@+id/graph"
-        android:layout_marginTop="57dp"
-    />
-
-
-
-
+        <TextView
+            android:text="(Empty)"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/toListWorkouts"
+            android:textStyle="normal|bold"
+            android:textSize="18sp" />
+    </ScrollView>
 </RelativeLayout>

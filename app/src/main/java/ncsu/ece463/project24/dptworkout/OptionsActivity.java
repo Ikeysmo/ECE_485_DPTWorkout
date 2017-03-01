@@ -16,8 +16,12 @@ import java.io.FileOutputStream;
 import java.io.PrintWriter;
 import java.net.Inet4Address;
 
+/*
+Description: OptionsActivity is for user to be able to select what options he/she wants and configure IP address
+Author: Isaiah Smoak
+ */
 public class OptionsActivity extends AppCompatActivity {
-    public static String IPAddress;
+    public static String IPAddress = "192.168.1.117";
     public static int port = 11000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,16 +30,15 @@ public class OptionsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        if(IPAddress != null){
-
+        if(IPAddress != null){ //if IP address already exists, copy it to textview
             EditText ed = (EditText) findViewById(R.id.ipAddressField);
             ed.setText(IPAddress);
         }
         else
-            OptionsActivity.IPAddress = "192.168.1.117"; //this assumes MenuActivity ran and no file was found!
-
+            OptionsActivity.IPAddress = "192.168.1.117"; //default value --> this assumes MenuActivity ran and no file was found!
     }
 
+    /*Sets the IP address upon Save button being pressed!   */
     public void setIPAddress(View view){
         EditText ed = (EditText) findViewById(R.id.ipAddressField);
         IPAddress = ed.getText().toString();
@@ -48,8 +51,6 @@ public class OptionsActivity extends AppCompatActivity {
         catch (Exception d){
             d.printStackTrace();
         }
-
-
     }
 
 }
