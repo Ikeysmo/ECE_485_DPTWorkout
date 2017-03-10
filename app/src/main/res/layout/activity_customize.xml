@@ -27,6 +27,75 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/button" />
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_marginTop="109dp"
+        android:id="@+id/spinner2"
+        android:entries="@array/Exercises" />
+
+    <TextView
+        android:text="Name of workout:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:id="@+id/textView2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:text="Enter workout name"
+        android:ems="10"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/button2"
+        android:layout_marginTop="6dp"
+        android:id="@+id/editText2" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_marginTop="50dp"
+        android:id="@+id/editText3"
+        android:text="0"
+        android:layout_below="@+id/spinner2"
+        android:layout_alignStart="@+id/button" />
+
+    <TextView
+        android:text="Number of sets"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:id="@+id/textView6"
+        android:layout_alignTop="@+id/editText3"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Number of reps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView6"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:id="@+id/textView10" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/editText3"
+        android:layout_marginStart="28dp"
+        android:id="@+id/editText4"
+        android:text="0" />
+
     <Button
         android:text="New Workout"
         android:layout_width="wrap_content"
@@ -34,13 +103,7 @@
         android:layout_marginBottom="45dp"
         android:id="@+id/button2"
         android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="109dp"
-        android:id="@+id/spinner2" />
+        android:layout_centerHorizontal="true"
+        android:onClick="createWorkout" />
 
 </RelativeLayout>

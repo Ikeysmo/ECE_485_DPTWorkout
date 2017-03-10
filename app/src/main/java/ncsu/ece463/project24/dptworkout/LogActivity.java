@@ -16,7 +16,7 @@ import java.util.Date;
 /*
 Description: This activity displays to the user a log of all the workout routines that were performed
 Author: Isaiah Smoak
- */
+ */ 
 public class LogActivity extends AppCompatActivity {
 
     @Override

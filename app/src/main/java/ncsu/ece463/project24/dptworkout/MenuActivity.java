@@ -33,7 +33,7 @@ public class MenuActivity extends AppCompatActivity {
         //create workout w/ random date/time stamp
         Workout ws = new Workout("Intro 101", "Workout to test things", new Exercise[]{
                 new Exercise("Bicep Curls", "Bend arm at 45 degrees", 1, 5),
-                new Exercise("Squats", "Lower body until legs are parallel to ground", 2, 3),
+                new Exercise("Squats", "Lower body until legs are parallel to ground", 1, 3),
                 new Exercise("Lateral Raises", "Blah blah", 1, 5)
         }, new Date().getTime());
         //used for Workout Activity testing reading JSON from string that would be stored in a file,
@@ -68,6 +68,10 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void tryBLE(View view){
+        Intent intent = new Intent(this, BLEActivity.class);
+        startActivity(intent);
+    }
     /* Reads IP address from Config file... assumes only IP address is there for now */
     public String getIPFromConfig() throws IOException {
         Log.d("DEBUG", "Trying to read the file!");

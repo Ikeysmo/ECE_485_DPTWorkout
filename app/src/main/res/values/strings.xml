@@ -6,6 +6,11 @@
         <item>Intro Workout (Biceps &#038; Squats)</item>
     </string-array>
 
+    <string-array name="Exercises">
+        <item>Bicep Curls</item>
+        <item>Lateral Raises</item>
+        <item>Squats</item>
+    </string-array>
     <string-array name="Months">
         <item>January</item>
         <item>February</item>

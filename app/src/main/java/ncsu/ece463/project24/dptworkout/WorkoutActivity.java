@@ -1,13 +1,11 @@
 package ncsu.ece463.project24.dptworkout;
 
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -56,9 +54,9 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
         catch (JSONException je){je.printStackTrace();} //need to handle this!!
 
         //initialize the GUI to proper sets, reps and time
-        TextView setCounter = (TextView) findViewById(R.id.textView10);
+        TextView setCounter = (TextView) findViewById(R.id.setCounter);
         setCounter.setText(String.valueOf(currWorkout.exercises.elementAt(0).totalSets));
-        TextView repCounter = (TextView) findViewById(R.id.textView6);
+        TextView repCounter = (TextView) findViewById(R.id.repCounter);
         repCounter.setText(String.valueOf(currWorkout.exercises.elementAt(0).totalReps));
 
         new Thread(this).start(); // starts the thread that handles the workout
@@ -131,9 +129,9 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                     public void run() {
                         TextView excerciseName = (TextView) findViewById(R.id.textView9);
                         excerciseName.setText(currExercise.name);
-                        TextView currentRep = (TextView) findViewById(R.id.textView6);
+                        TextView currentRep = (TextView) findViewById(R.id.repCounter);
                         currentRep.setText(String.valueOf(currExercise.totalReps));
-                        TextView currentSet = (TextView) findViewById(R.id.textView10);
+                        TextView currentSet = (TextView) findViewById(R.id.setCounter);
                         currentSet.setText(String.valueOf(currExercise.totalSets));
                     }
                 });
@@ -191,9 +189,9 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                                 //}
                                 View view = (View) findViewById(R.id.activity_workout);
                                 view.setBackgroundColor(getResources().getColor(R.color.LightBlue));
-                                TextView setCounter = (TextView) findViewById(R.id.textView10);
+                                TextView setCounter = (TextView) findViewById(R.id.setCounter);
                                 setCounter.setText(String.valueOf(currSet));
-                                TextView repCounter = (TextView) findViewById(R.id.textView6);
+                                TextView repCounter = (TextView) findViewById(R.id.repCounter);
                                 repCounter.setText(String.valueOf(currReps));
                             }
                         }); //does runonUIthread executes before while loop continues??
@@ -217,9 +215,9 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                     } catch (ClassNotFoundException e) { //file corrupted!
                         e.printStackTrace();
                     }
-                    TextView setCounter = (TextView) findViewById(R.id.textView10);
+                    TextView setCounter = (TextView) findViewById(R.id.setCounter);
                     setCounter.setText(String.valueOf(0)); //set everything to 0
-                    TextView repCounter = (TextView) findViewById(R.id.textView6);
+                    TextView repCounter = (TextView) findViewById(R.id.repCounter);
                     repCounter.setText(String.valueOf(0)); //set everything to 0
                     //eventually want to try to reconnect!
                     Handler handler = new Handler();
