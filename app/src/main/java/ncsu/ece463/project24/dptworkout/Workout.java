@@ -38,6 +38,7 @@ public class Workout implements Serializable {
     public long date; //or another storage method
     public boolean complete = false;
     public Vector<Exercise> exercises = new Vector<Exercise>();
+    public Vector<Workout> customWorkouts = new Vector<Workout>();
 
     public Workout(String name, String description, Exercise[] list, long date){
         this.title = name;
@@ -55,6 +56,16 @@ public class Workout implements Serializable {
         this.date = date;
     }
 
+    public Workout[] getCustomWorkouts(){
+        //load from disk and return listing
+    }
+
+    public void addCustomWorkout(Workout wkout){
+        customWorkouts.add(wkout);
+    }
+    public void saveCustomWorkouts(){
+        //write to disk
+    }
 
     public void addExcercise(String name, String description, int set, int reps, int secs){
         //String name, String instructions, int set, int reps, int secs

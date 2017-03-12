@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import org.json.JSONException;
@@ -20,7 +21,7 @@ import java.util.Date;
 Description: This activity provides interface to reaching other activities
 Author: Isaiah Smoak
  */
-public class MenuActivity extends AppCompatActivity {
+public class MenuActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
     public static String tempHolder; //here for debugging purposes only
 
     @Override
@@ -48,6 +49,7 @@ public class MenuActivity extends AppCompatActivity {
 
         //get all the names of all the workouts that exist and add to spinner!
         Spinner sp = (Spinner) findViewById(R.id.selectWorkout);
+
        // Workout.saveWorkout(ws, this);
     }
 
@@ -91,5 +93,10 @@ public class MenuActivity extends AppCompatActivity {
         Log.d("DEBUG", "RESTORED THE SETTINGS!");
         //return rcv;
         return Config.IP_ADDRESS;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        //do stuff here
     }
 }

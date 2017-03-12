@@ -39,6 +39,7 @@ public class CustomizeActivity extends AppCompatActivity {
             return;
         }
         //create new Workout
+
         //save it to list of workouts!
 
         //create new exercise

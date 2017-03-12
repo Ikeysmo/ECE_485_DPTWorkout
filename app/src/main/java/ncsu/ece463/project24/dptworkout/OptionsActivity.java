@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
@@ -30,6 +31,7 @@ public class OptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_options);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         IPAddress = Config.IP_ADDRESS;
         if(IPAddress != null){ //if IP address already exists, copy it to textview
             EditText ed = (EditText) findViewById(R.id.ipAddressField);
@@ -51,6 +53,21 @@ public class OptionsActivity extends AppCompatActivity {
         Config.saveSettings(this);
         Toast.makeText(this, "Saved IP Address!", Toast.LENGTH_SHORT).show();
         //save the file!!
+    }
+
+    public void toggleAudio(View view){
+        ToggleButton tgbutt = (ToggleButton) findViewById(R.id.toggleButton);
+        if(tgbutt.getText().toString().equalsIgnoreCase("ON")) {
+            Config.audio_enabled = true;
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(getApplicationContext(), "Set to on", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+        else
+            Config.audio_enabled = false;
     }
 
 }

@@ -165,16 +165,19 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                                 errorCounter.setText(String.valueOf(Integer.parseInt(errorCounter.getText().toString()) + 1));
                             }
                         });
-                        audiofiles[TRY_AGAIN].start(); //play try again through speakers
+                        if(Config.audio_enabled)
+                            audiofiles[TRY_AGAIN].start(); //play try again through speakers
                     } else if (response.equalsIgnoreCase("CORRECT")) { //increment counter
                         --currReps; //decrement
                         if(currReps <= 0)
                             --currSet;
                         //play sound here
-                        if (((int) (Math.random() * 2)) == 0) //50% chance on saying either correct or good job
+                        if (((int) (Math.random() * 2)) == 0 && Config.audio_enabled) //50% chance on saying either correct or good job
                             audiofiles[CORRECT].start();
-                        else
-                            audiofiles[GOOD_JOB].start();
+                        else {
+                            if(Config.audio_enabled)
+                                audiofiles[GOOD_JOB].start();
+                        }
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -200,6 +203,7 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                 }
             }
             dos.write("stop".getBytes()); //write stop to prevent kinect to keep sending info
+            dos.close();
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -240,4 +244,14 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
             });
         }
     } //end run method
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        try {
+            dos.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

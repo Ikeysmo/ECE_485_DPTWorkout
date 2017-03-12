@@ -55,7 +55,9 @@
         android:layout_below="@+id/textView13"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="30dp"
-        android:id="@+id/toggleButton" />
+        android:id="@+id/toggleButton"
+        android:onClick="toggleAudio"
+        android:checked="true" />
 
     <TextView
         android:text="Audio Feedback"
