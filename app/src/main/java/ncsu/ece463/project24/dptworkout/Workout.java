@@ -36,6 +36,7 @@ public class Workout implements Serializable {
     public String title;
     public String description;
     public long date; //or another storage method
+    public boolean complete = false;
     public Vector<Exercise> exercises = new Vector<Exercise>();
 
     public Workout(String name, String description, Exercise[] list, long date){

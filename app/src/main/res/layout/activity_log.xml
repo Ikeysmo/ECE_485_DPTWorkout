@@ -47,22 +47,41 @@
         <!--android:layout_marginTop="57dp"-->
     <!--/>-->
 
+    <TextView
+        android:text="Date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:id="@+id/textView18"
+        android:textSize="20dp"
+        android:textStyle="normal|bold" />
 
+    <TextView
+        android:text="Workout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/textView34"
+        android:textSize="20dp"
+        android:textStyle="normal|bold" />
 
+    <TextView
+        android:text="Status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="5dp"
+        android:id="@+id/textView35"
+        android:textSize="20dp"
+        android:textStyle="normal|bold" />
 
-    <ScrollView
+    <ListView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="400dp"
+        android:layout_alignTop="@id/textView18"
+        android:layout_marginTop="30dp"
+        android:id="@+id/workout_lists" />
 
 
-        <TextView
-            android:text="(Empty)"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:id="@+id/toListWorkouts"
-            android:textStyle="normal|bold"
-            android:textSize="18sp" />
-    </ScrollView>
 </RelativeLayout>

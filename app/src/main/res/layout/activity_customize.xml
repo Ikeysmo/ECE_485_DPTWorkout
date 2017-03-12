@@ -17,23 +17,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-
-    <Button
-        android:text="Workout!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/button" />
-
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_marginTop="109dp"
-        android:id="@+id/spinner2"
-        android:entries="@array/Exercises" />
+        android:layout_alignParentStart="true"
+        android:textStyle="normal|bold" />
 
     <TextView
         android:text="Name of workout:"
@@ -48,62 +33,107 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
-        android:text="Enter workout name"
         android:ems="10"
         android:layout_below="@+id/textView"
         android:layout_alignStart="@+id/button2"
         android:layout_marginTop="6dp"
-        android:id="@+id/editText2" />
+        android:id="@+id/editText2"
+        android:hint="Enter workout name" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:layout_marginTop="50dp"
         android:id="@+id/editText3"
-        android:text="0"
-        android:layout_below="@+id/spinner2"
-        android:layout_alignStart="@+id/button" />
+        android:layout_alignBaseline="@+id/textView6"
+        android:layout_alignBottom="@+id/textView6"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:hint="1"
+        android:textAlignment="center"
+        android:text="1" />
+
+    <Button
+        android:text="Create Workout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:id="@+id/button2"
+        android:onClick="createWorkout"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="Number of sets"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
         android:id="@+id/textView6"
-        android:layout_alignTop="@+id/editText3"
+        android:layout_marginBottom="34dp"
+        android:layout_marginStart="7dp"
+        android:layout_above="@+id/textView10"
         android:layout_alignParentStart="true" />
 
     <TextView
         android:text="Number of reps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView6"
-        android:layout_alignStart="@+id/textView6"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="36dp"
-        android:id="@+id/textView10" />
+        android:id="@+id/textView10"
+        android:layout_marginBottom="18dp"
+        android:layout_above="@+id/button4"
+        android:layout_alignEnd="@+id/textView6" />
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/editText3"
-        android:layout_marginStart="28dp"
         android:id="@+id/editText4"
-        android:text="0" />
+        android:textAlignment="center"
+        android:hint="10"
+        android:layout_alignBaseline="@+id/textView10"
+        android:layout_alignBottom="@+id/textView10"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="30dp"
+        android:text="10" />
 
-    <Button
-        android:text="New Workout"
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner2"
+        android:entries="@array/Exercises"
+        android:layout_marginBottom="10dp"
+        android:layout_above="@+id/editText3"
+        android:layout_alignParentStart="true" />
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_below="@+id/textView2"
+        android:layout_alignTop="@id/textView2"
+        android:layout_marginTop="35dp"
+        android:isScrollContainer="false">
+
+        <TextView
+        android:text="(empty)"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="45dp"
-        android:id="@+id/button2"
-        android:layout_above="@+id/button"
-        android:layout_centerHorizontal="true"
-        android:onClick="createWorkout" />
+        android:id="@+id/exercise_listing"
+        android:layout_alignStart="@+id/textView10"
+            android:textColor="@color/DarkRed" />
+    </ScrollView>
+
+    <Button
+        android:text="Add Exercise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button4"
+        android:background="@android:color/holo_green_light"
+        android:elevation="0dp"
+        android:layout_above="@+id/button2"
+        android:layout_toEndOf="@+id/button2"
+        android:onClick="addExercise" />
 
 </RelativeLayout>

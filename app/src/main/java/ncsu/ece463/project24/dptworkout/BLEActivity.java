@@ -15,19 +15,24 @@ import android.content.pm.PackageManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.Arrays;
 import java.util.UUID;
-
-import static android.bluetooth.BluetoothAdapter.STATE_CONNECTED;
 
 public class BLEActivity extends AppCompatActivity {
     private BluetoothAdapter mBluetoothAdapter;
     private boolean connected;
 
     private class mBluetoothCallBack extends BluetoothGattCallback{
-        @Override
+        private final static boolean LEFTPAD = false;
+        private final static boolean RIGHTPAD = true;
+        private  boolean padOrientation = LEFTPAD; //left pad
+        public mBluetoothCallBack(boolean isRight){
+            padOrientation = isRight;
+        }
+
         public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState){
             String intentAction;
             String TAG = "HELLO";
@@ -68,11 +73,29 @@ public class BLEActivity extends AppCompatActivity {
         @Override
         public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic){
             //Log.d("DEBUG", "DO SOMETHING");
-            byte[] input = characteristic.getValue();
+            final byte[] input = characteristic.getValue();
             Log.d("DEBUG",  gatt.getDevice().getName() + "  GOT THIS: " + Arrays.toString(input));
+            if(padOrientation == LEFTPAD){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView txt = (TextView) findViewById(R.id.ble_angle_left);
+                        txt.setText(String.valueOf(input[0]));
+                    }
+                });
+            }
+            else if(padOrientation == RIGHTPAD){
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        TextView txt = (TextView) findViewById(R.id.ble_angle_right);
+                        txt.setText(String.valueOf(input[0]));
+                    }
+                });
+            }
         }
     }
-    private BluetoothGattCallback mgattcallback = new mBluetoothCallBack();
+    //private BluetoothGattCallback mgattcallback = new mBluetoothCallBack();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,9 +122,9 @@ public class BLEActivity extends AppCompatActivity {
         }
 
         BluetoothDevice bd = mBluetoothAdapter.getRemoteDevice("D5:6B:4F:85:08:2E");
-        bd.connectGatt(this, false, new mBluetoothCallBack());
+        bd.connectGatt(this, false, new mBluetoothCallBack(mBluetoothCallBack.RIGHTPAD));
         BluetoothDevice bd2 = mBluetoothAdapter.getRemoteDevice("DE:9F:F9:F2:2C:80");
-        bd2.connectGatt(this, false, new mBluetoothCallBack());
+        bd2.connectGatt(this, false, new mBluetoothCallBack(mBluetoothCallBack.LEFTPAD));
 
     }
 

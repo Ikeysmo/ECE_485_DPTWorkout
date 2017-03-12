@@ -1,7 +1,11 @@
 package ncsu.ece463.project24.dptworkout;
 
+import android.app.ListActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jjoe64.graphview.GraphView;
@@ -16,26 +20,42 @@ import java.util.Date;
 /*
 Description: This activity displays to the user a log of all the workout routines that were performed
 Author: Isaiah Smoak
- */ 
+ */
 public class LogActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
+
         String response = "List of workouts performed: \n\n";
         try {
             Workout[] allWorkouts = Workout.loadWorkouts(this);
-            for(Workout wk : allWorkouts){
-                response += "Name: " + wk.title + " \nDate: " + DateFormat.getInstance().format(wk.date) + "\n------------------------------------------\n";
-            }
-            TextView workoutlist = (TextView) findViewById(R.id.toListWorkouts);
-            workoutlist.setText(response);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) { //file is corrupted!
-            e.printStackTrace();
+            ListView listview = (ListView) findViewById(R.id.workout_lists) ;
+            myCustomAdapter adapter = new myCustomAdapter(this, allWorkouts);
+
+            listview.setAdapter(adapter);
+            listview.setOnItemClickListener(
+                    new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            //eventually switch to expandable listview!
+                        }
+                    }
+            );
+
+//            for(Workout wk : allWorkouts){
+//                response += "Name: " + wk.title + " \nDate: " + DateFormat.getInstance().format(wk.date) + "\n------------------------------------------\n";
+        } catch (ClassNotFoundException e1) {
+            //if class isn't found, delete all the old workouts
+
+            e1.printStackTrace();
+        } catch (IOException e1) {
+            e1.printStackTrace();
         }
+//            TextView workoutlist = (TextView) findViewById(R.id.toListWorkouts);
+//            workoutlist.setText(response);
+
 
 //        GraphView graph = (GraphView) findViewById(R.id.graph);
 //        LineGraphSeries<DataPoint> series = new LineGraphSeries<>(new DataPoint[] { //random graph for testing purposes
@@ -55,5 +75,6 @@ public class LogActivity extends AppCompatActivity {
 //        graph.getViewport().setYAxisBoundsManual(true);
 //        graph.getViewport().setMinY(0.0);
 //        graph.getViewport().setMaxY(100);
+
     }
 }

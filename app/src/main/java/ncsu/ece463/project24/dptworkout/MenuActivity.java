@@ -13,6 +13,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.util.Date;
 
 /*
@@ -26,8 +27,10 @@ public class MenuActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
+        setTitle("DPT Workout");
         try{     //try parsing the Options/IP address if available
             OptionsActivity.IPAddress = getIPFromConfig();
+            Config.IP_ADDRESS = OptionsActivity.IPAddress;
         }
        catch (Exception d){Log.d("DEBUG", "Options not found!");}
         //create workout w/ random date/time stamp
@@ -73,16 +76,20 @@ public class MenuActivity extends AppCompatActivity {
         startActivity(intent);
     }
     /* Reads IP address from Config file... assumes only IP address is there for now */
-    public String getIPFromConfig() throws IOException {
+    public String getIPFromConfig() throws IOException, ClassNotFoundException {
         Log.d("DEBUG", "Trying to read the file!");
-        FileInputStream fis = openFileInput("config.txt");
-        byte[] innerRd = new byte[64];
-        int size = fis.read(innerRd);
-        String rcv = "";
-        for(int i = 0; i < size; i++)
-            rcv += (char) innerRd[i];
+        Config.loadSettings(this);
+        //FileInputStream fis = openFileInput("config.txt");
+        //ObjectInputStream oij = new ObjectInputStream(fis);
+        //Config con = (Config) oij.readObject();
+       // byte[] innerRd = new byte[64];
+        //int size = fis.read(innerRd);
+        //String rcv = "";
+        //for(int i = 0; i < size; i++)
+            //rcv += (char) innerRd[i];
 
         Log.d("DEBUG", "RESTORED THE SETTINGS!");
-        return rcv;
+        //return rcv;
+        return Config.IP_ADDRESS;
     }
 }

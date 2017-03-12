@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.io.BufferedOutputStream;
 import java.io.BufferedWriter;
 import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Inet4Address;
 
@@ -21,7 +22,7 @@ Description: OptionsActivity is for user to be able to select what options he/sh
 Author: Isaiah Smoak
  */
 public class OptionsActivity extends AppCompatActivity {
-    public static String IPAddress = "192.168.1.117";
+    public static String IPAddress;
     public static int port = 11000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,28 +30,27 @@ public class OptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_options);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        IPAddress = Config.IP_ADDRESS;
         if(IPAddress != null){ //if IP address already exists, copy it to textview
             EditText ed = (EditText) findViewById(R.id.ipAddressField);
             ed.setText(IPAddress);
+
         }
-        else
-            OptionsActivity.IPAddress = "192.168.1.117"; //default value --> this assumes MenuActivity ran and no file was found!
+        else { //default, if Config is empty!
+            OptionsActivity.IPAddress = Config.DEFAULT_IP_ADDRESS; //default value --> this assumes MenuActivity ran and no file was found!
+            EditText ed = (EditText) findViewById(R.id.ipAddressField);
+            ed.setText(Config.DEFAULT_IP_ADDRESS);
+        }
     }
 
     /*Sets the IP address upon Save button being pressed!   */
-    public void setIPAddress(View view){
+    public void saveSettings(View view){
         EditText ed = (EditText) findViewById(R.id.ipAddressField);
         IPAddress = ed.getText().toString();
+        Config.IP_ADDRESS = IPAddress;
+        Config.saveSettings(this);
         Toast.makeText(this, "Saved IP Address!", Toast.LENGTH_SHORT).show();
         //save the file!!
-        try {
-            FileOutputStream fos = openFileOutput("config.txt", MODE_PRIVATE);
-            fos.write(IPAddress.getBytes());
-        }
-        catch (Exception d){
-            d.printStackTrace();
-        }
     }
 
 }
