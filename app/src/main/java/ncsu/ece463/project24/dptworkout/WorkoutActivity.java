@@ -47,18 +47,18 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_workout);
-        try { //reads the workout from string (which will be a file)
-            currWorkout = Workout.getWorkout((JSONObject) new JSONTokener(MenuActivity.tempHolder).nextValue());
-            System.out.println(currWorkout);
-        }
-        catch (JSONException je){je.printStackTrace();} //need to handle this!!
-
+//               try { //reads the workout from string (which will be a file)
+//            currWorkout = Workout.getWorkout((JSONObject) new JSONTokener(MenuActivity.tempHolder).nextValue());
+//            System.out.println(currWorkout);
+//        }
+//        catch (JSONException je){je.printStackTrace();} //need to handle this!!
+        currWorkout = Workout.currentWorkout;
         //initialize the GUI to proper sets, reps and time
         TextView setCounter = (TextView) findViewById(R.id.setCounter);
         setCounter.setText(String.valueOf(currWorkout.exercises.elementAt(0).totalSets));
         TextView repCounter = (TextView) findViewById(R.id.repCounter);
         repCounter.setText(String.valueOf(currWorkout.exercises.elementAt(0).totalReps));
-
+        setTitle(currWorkout.title);
         new Thread(this).start(); // starts the thread that handles the workout
         runTimer(); //begin timer to count down
     }
@@ -213,6 +213,7 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                     //save workout!
                     try {
                         currWorkout.date = new Date().getTime();
+                        currWorkout.complete = true;
                         Workout.saveWorkout(currWorkout, getApplicationContext());
                     } catch (IOException e) {
                         e.printStackTrace();

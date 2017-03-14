@@ -4,11 +4,13 @@ import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.io.IOException;
 import java.util.Vector;
 
 /*
@@ -39,9 +41,20 @@ public class CustomizeActivity extends AppCompatActivity {
             return;
         }
         //create new Workout
-
+        EditText gname = (EditText) findViewById(R.id.editText2);
+        Workout createdWorkout = new Workout(gname.getText().toString(), "Custom Workout",
+                listExercises, 0 );
         //save it to list of workouts!
-
+        Workout.addCustomWorkout(createdWorkout);
+        try {
+            Workout.saveCustomWorkouts(this);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        Toast.makeText(this, "Created Workout", Toast.LENGTH_SHORT).show();
+        //Spinner sp = (Spinner) findViewById(R.id.selectWorkout);
+        //ArrayAdapter d = (ArrayAdapter) sp.getAdapter();
+        //d.notifyDataSetChanged();
         //create new exercise
 
     }

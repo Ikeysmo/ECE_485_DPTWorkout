@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:text="Description: "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="106dp"
+        android:id="@+id/textView20"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:text="Description:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:id="@+id/textView25" />
+
+    <TextView
+        android:text="Exercises Performed:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/textView21"
+        android:layout_alignStart="@+id/textView25"
+        android:id="@+id/textView26" />
+
+    <TextView
+        android:text="4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:id="@+id/textView21"
+        android:layout_below="@+id/textView20"
+        android:layout_toEndOf="@+id/textView26"
+        android:layout_marginStart="15dp" />
+
+    <TextView
+        android:text="Total Errors:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView26"
+        android:layout_alignStart="@+id/textView26"
+        android:layout_marginTop="9dp"
+        android:id="@+id/textView27" />
+
+    <TextView
+        android:text="Total Correct"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textView27"
+        android:layout_alignStart="@+id/textView27"
+        android:layout_marginTop="7dp"
+        android:id="@+id/textView28" />
+</RelativeLayout>

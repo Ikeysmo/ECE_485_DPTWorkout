@@ -2,7 +2,9 @@
 <resources>
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#da2e68</color>
-    <color name="DarkRed">#b80d0d</color>
-    <color name="LightBlue">#3b80ff</color>
+    <color name="colorAccent">#da2e2e</color>
+    <color name="DarkRed">#9e0000</color>
+    <color name="LightBlue">#56beff</color>
+    <color name="transparent">#00000000</color>
+    <color name="BabyBlue">#008fcc</color>
 </resources>

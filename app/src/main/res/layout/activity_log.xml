@@ -76,12 +76,13 @@
         android:textSize="20dp"
         android:textStyle="normal|bold" />
 
-    <ListView
+    <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_alignTop="@id/textView18"
         android:layout_marginTop="30dp"
-        android:id="@+id/workout_lists" />
+        android:id="@+id/workout_lists"
+        android:layout_alignParentBottom="true" />
 
 
 </RelativeLayout>

@@ -18,6 +18,7 @@ public class Exercise implements Serializable{ //make a text file for default wo
     public int totalSecs = 0; //if not zero, then timer counts from value
     public int correct; //may not be used
     public int errors;
+    public boolean padEnable = false;
 
     public Exercise(String name, String instructions, int set, int reps){
         this.totalSets = set;

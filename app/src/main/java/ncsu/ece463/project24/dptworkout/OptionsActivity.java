@@ -31,7 +31,7 @@ public class OptionsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_options);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
+        setTitle("Settings");
         IPAddress = Config.IP_ADDRESS;
         if(IPAddress != null){ //if IP address already exists, copy it to textview
             EditText ed = (EditText) findViewById(R.id.ipAddressField);

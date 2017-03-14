@@ -51,4 +51,41 @@
         android:textStyle="normal|bold"
         android:layout_above="@+id/ble_angle_right"
         android:layout_alignStart="@+id/textView11" />
+
+    <TextView
+        android:text="Left Pad:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView17"
+        android:layout_marginStart="7dp"
+        android:id="@+id/textView30" />
+
+    <TextView
+        android:text="Right Pad:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/rpadstatus"
+        android:layout_toStartOf="@+id/rpadstatus"
+        android:layout_marginEnd="8dp"
+        android:id="@+id/textView31" />
+
+    <TextView
+        android:text="Disconnected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lpadstatus"
+        android:textColor="@color/DarkRed"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@+id/textView30"
+        android:layout_marginStart="7dp" />
+
+    <TextView
+        android:text="Disconnected"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rpadstatus"
+        android:textColor="@color/DarkRed"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

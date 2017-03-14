@@ -1,10 +1,15 @@
 package ncsu.ece463.project24.dptworkout;
 
 import android.app.ListActivity;
+import android.graphics.Color;
+import android.graphics.Point;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -27,22 +32,30 @@ public class LogActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log);
-
+        setTitle("Workout History");
         String response = "List of workouts performed: \n\n";
         try {
             Workout[] allWorkouts = Workout.loadWorkouts(this);
-            ListView listview = (ListView) findViewById(R.id.workout_lists) ;
-            myCustomAdapter adapter = new myCustomAdapter(this, allWorkouts);
+            ExpandableListView exlistview = (ExpandableListView) findViewById(R.id.workout_lists) ;
+            exlistview.setClickable(true);
+            myCustomAdapter adapter = new myCustomAdapter(this, allWorkouts, getLayoutInflater());
 
-            listview.setAdapter(adapter);
-            listview.setOnItemClickListener(
+            exlistview.setAdapter(adapter);
+            //exlistview.setChildDivider(getResources().getDrawable(R.color.transparent));
+            exlistview.setDivider(getResources().getDrawable(R.color.colorPrimaryDark));
+            exlistview.setDividerHeight(4);
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            exlistview.setIndicatorBoundsRelative(size.x - 40, size.x);
+            /*exlistview.setOnItemClickListener(
                     new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             //eventually switch to expandable listview!
                         }
                     }
-            );
+            ); */
 
 //            for(Workout wk : allWorkouts){
 //                response += "Name: " + wk.title + " \nDate: " + DateFormat.getInstance().format(wk.date) + "\n------------------------------------------\n";

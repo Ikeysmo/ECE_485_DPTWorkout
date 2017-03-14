@@ -38,7 +38,8 @@ public class Workout implements Serializable {
     public long date; //or another storage method
     public boolean complete = false;
     public Vector<Exercise> exercises = new Vector<Exercise>();
-    public Vector<Workout> customWorkouts = new Vector<Workout>();
+    public static Vector<Workout> customWorkouts = new Vector<Workout>();
+    public static Workout currentWorkout;
 
     public Workout(String name, String description, Exercise[] list, long date){
         this.title = name;
@@ -56,15 +57,31 @@ public class Workout implements Serializable {
         this.date = date;
     }
 
-    public Workout[] getCustomWorkouts(){
-        //load from disk and return listing
+    public static Workout[] getCustomWorkouts(){
+        return customWorkouts.toArray(new Workout[customWorkouts.size()]);
     }
 
-    public void addCustomWorkout(Workout wkout){
+    public static void addCustomWorkout(Workout wkout){
         customWorkouts.add(wkout);
     }
-    public void saveCustomWorkouts(){
+    public static void saveCustomWorkouts(Context context) throws IOException {
         //write to disk
+        FileOutputStream fos = context.openFileOutput("Custom Workouts.txt", Context.MODE_PRIVATE);
+        ObjectOutputStream ouj = new ObjectOutputStream(fos);
+        ouj.writeObject(customWorkouts);
+        Log.d("DEBUG", "SAVED WORKOUTS!");
+    }
+
+    public static void loadCustomWorkouts(Context context) throws IOException{
+        //load from disk and return listing
+        FileInputStream fis = context.openFileInput("Custom Workouts.txt");
+        ObjectInputStream oij = new ObjectInputStream(fis);
+        try {
+            customWorkouts = (Vector<Workout>) oij.readObject();
+        }
+        catch (ClassNotFoundException cnf){
+            throw new FileNotFoundException();}
+        Log.d("DEBUG", "LOADED SUCCESSFULLY");
     }
 
     public void addExcercise(String name, String description, int set, int reps, int secs){
