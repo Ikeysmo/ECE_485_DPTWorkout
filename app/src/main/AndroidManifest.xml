@@ -3,13 +3,16 @@
     package="ncsu.ece463.project24.dptworkout">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-feature android:name="android.hardware.bluetooth_le" android:required="true"/>
 
-    <uses-permission android:name="android.permission.BLUETOOTH"/>
-    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-feature android:name="android.hardware.location.gps"/>
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <uses-feature android:name="android.hardware.location.gps" />
 
     <application
         android:allowBackup="true"
@@ -35,7 +38,8 @@
             android:name=".OptionsActivity"
             android:label="@string/title_activity_options"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".BLEActivity"></activity>
+        <activity android:name=".BLEActivity" />
+        <activity android:name=".CalibrateActivity" />
     </application>
 
 </manifest>

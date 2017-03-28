@@ -23,7 +23,7 @@ Description: OptionsActivity is for user to be able to select what options he/sh
 Author: Isaiah Smoak
  */
 public class OptionsActivity extends AppCompatActivity {
-    public static String IPAddress;
+    //public static String IPAddress = Config.IP_ADDRESS;
     public static int port = 11000;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,24 +32,22 @@ public class OptionsActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle("Settings");
-        IPAddress = Config.IP_ADDRESS;
-        if(IPAddress != null){ //if IP address already exists, copy it to textview
+        if(Config.IP_ADDRESS != null){ //if IP address already exists, copy it to textview
             EditText ed = (EditText) findViewById(R.id.ipAddressField);
-            ed.setText(IPAddress);
+            ed.setText(Config.IP_ADDRESS);
 
         }
         else { //default, if Config is empty!
-            OptionsActivity.IPAddress = Config.DEFAULT_IP_ADDRESS; //default value --> this assumes MenuActivity ran and no file was found!
+            Config.IP_ADDRESS = Config.DEFAULT_IP_ADDRESS; //default value --> this assumes MenuActivity ran and no file was found!
             EditText ed = (EditText) findViewById(R.id.ipAddressField);
-            ed.setText(Config.DEFAULT_IP_ADDRESS);
+            ed.setText(Config.IP_ADDRESS);
         }
     }
 
     /*Sets the IP address upon Save button being pressed!   */
     public void saveSettings(View view){
         EditText ed = (EditText) findViewById(R.id.ipAddressField);
-        IPAddress = ed.getText().toString();
-        Config.IP_ADDRESS = IPAddress;
+        Config.IP_ADDRESS = ed.getText().toString();
         Config.saveSettings(this);
         Toast.makeText(this, "Saved IP Address!", Toast.LENGTH_SHORT).show();
         //save the file!!

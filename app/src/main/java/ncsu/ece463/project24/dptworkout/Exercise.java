@@ -34,6 +34,14 @@ public class Exercise implements Serializable{ //make a text file for default wo
         this.totalSecs = secs;
     }
 
+    public Exercise(String name, String instructions, int set, int reps, boolean padEnable){
+        this.totalSets = set;
+        this.name = name;
+        this.instructions = instructions;
+        this.totalReps = reps;
+        this.padEnable = padEnable;
+    }
+
     public JSONObject getJSON() throws JSONException {
         return new JSONObject().put("Name", name ).put("Instructions", instructions).put("Sets", totalSets).put("Reps", totalReps).put("Time", totalSecs);
     }

@@ -91,15 +91,16 @@ public class myCustomAdapter extends BaseExpandableListAdapter{
     public View getGroupView(int i, boolean b, View view, ViewGroup viewGroup) {
         if(view == null){
             view = layinf.inflate(R.layout.compressed_file, null);
-            TextView tv = (TextView) view.findViewById(R.id.textView23);
-            tv.setText(values[i].title);
-            TextView tv1 = (TextView) view.findViewById(R.id.textView22);
-            String date = DateFormat.getInstance().format(values[i].date);
-            date = date.substring(0, date.indexOf(","));
-            tv1.setText(date);
-            TextView tv3 = (TextView) view.findViewById(R.id.textView24);
-            tv3.setText(values[i].complete ? "Done" : "Skipped");
+
         }
+        TextView tv = (TextView) view.findViewById(R.id.textView23);
+        tv.setText(values[i].title);
+        TextView tv1 = (TextView) view.findViewById(R.id.textView22);
+        String date = DateFormat.getInstance().format(values[i].date);
+        date = date.substring(0, date.indexOf(","));
+        tv1.setText(date);
+        TextView tv3 = (TextView) view.findViewById(R.id.textView24);
+        tv3.setText(values[i].complete ? "Done" : "Skipped");
         return view;
     }
 
@@ -107,9 +108,17 @@ public class myCustomAdapter extends BaseExpandableListAdapter{
     public View getChildView(int i, int i1, boolean b, View view, ViewGroup viewGroup) {
         if(view == null){
             view = layinf.inflate(R.layout.expanded_list, null);
-            TextView wd = (TextView) view.findViewById(R.id.textView20);
-            wd.setText(values[i].description);
         }
+        TextView wd = (TextView) view.findViewById(R.id.textView20);
+        wd.setText(values[i].description);
+        TextView wx = (TextView) view.findViewById(R.id.totalError);
+        wx.setText(String.valueOf(values[i].totalErrors));
+        TextView wy = (TextView) view.findViewById(R.id.loggedTime);
+        String min = String.valueOf(values[i].totaltime / 60) + " min, ";
+        String sec = String.valueOf(values[i].totaltime % 60) + " secs";
+        wy.setText(min + sec);
+        TextView exercisesPerformed = (TextView) view.findViewById(R.id.textView21);
+        exercisesPerformed.setText(String.valueOf(values[i].exercises.size()));
         Log.d("DEBUG", "What is this size is " + values.length + " ???");
         return view;
     }

@@ -21,21 +21,18 @@ import java.util.UUID;
  * Created by Ikeys on 3/13/2017.
  */
 
-public class BLE_Callback extends BluetoothGattCallback {
+public class BLE_Simple_Callback extends BluetoothGattCallback {
     public final static boolean LEFTPAD = false; //constant
     public final static boolean RIGHTPAD = true; //constant
     public  boolean padOrientation = LEFTPAD; //ID of current pad
     private static boolean lpadConnected = false;
     private static boolean rpadConnected = false;
     public static boolean isCalibrated = false;
-    public static byte[] ldata;
-    public static byte[] rdata;
     //private boolean bothPadsOnline = false;
     private Context context;
-    private volatile static boolean rpad_gotdata = false;
-    private volatile static boolean lpad_gotdata = false;
 
-    public BLE_Callback(Context context, boolean isRight){
+
+    public BLE_Simple_Callback(Context context, boolean isRight){
         padOrientation = isRight;
         this.context = context;
     }
@@ -51,6 +48,7 @@ public class BLE_Callback extends BluetoothGattCallback {
             Log.i(TAG, "Connected to GATT server.");
             gatt.discoverServices();
         }
+
         else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
 //                mConnectionState = STATE_DISCONNECTED;
             Log.i(TAG, "Disconnected from GATT server.");
@@ -60,11 +58,12 @@ public class BLE_Callback extends BluetoothGattCallback {
                 ((Activity)context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
+                        TextView tv = (TextView) ((Activity) context).findViewById(R.id.lpadstatus);
+                        tv.setTextColor(Color.RED);
+                        tv.setText("Not connected!");
                         if(!(lpadConnected && rpadConnected))
                             Toast.makeText(context, "Left Pad Disconnected!", Toast.LENGTH_SHORT).show();
-                        TextView tv = (TextView) ((Activity) context).findViewById(R.id.menu_pad_status);
-                        tv.setText("Disconnected"); //can't run on this layout menu
-                }
+                    }
                 });
 
 
@@ -83,10 +82,20 @@ public class BLE_Callback extends BluetoothGattCallback {
                 ((Activity)context).runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(!(lpadConnected && rpadConnected)){
+                        if (!(lpadConnected && rpadConnected)) {
+                            TextView tv = (TextView) ((Activity) context).findViewById(R.id.rpadstatus);
+                            tv.setTextColor(Color.RED);
+                            tv.setText("Not connected!");
                             Toast.makeText(context, "Right Pad Disconnected!", Toast.LENGTH_SHORT).show();
-                        TextView tv = (TextView) ((Activity) context).findViewById(R.id.menu_pad_status);
-                        tv.setText("Disconnected");}
+                        }
+                    }
+                });
+            }
+            if(!gatt.connect()) {
+                ((Activity) context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(context, "Connection Reattempt failed!", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -116,12 +125,14 @@ public class BLE_Callback extends BluetoothGattCallback {
                 Log.d("DEBUG", "ENABLED NOTIFICATIONS FOR " + gatt.getDevice().getName());
                 if(padOrientation == LEFTPAD) {
                     lpadConnected = true;
-//                    TextView tv = (TextView) ((Activity) context).findViewById(R.id.menu_pad_status);
-//                    tv.setText("Left Pad is Connected!");
+
                     ((Activity)context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(context, "Left Pad connected!", Toast.LENGTH_SHORT).show();
+                            TextView tv = (TextView) ((Activity) context).findViewById(R.id.lpadstatus);
+                            tv.setTextColor(Color.GREEN);
+                            tv.setText("Connected!");
                         }
                     });
 
@@ -129,25 +140,25 @@ public class BLE_Callback extends BluetoothGattCallback {
                 }
                 else if(padOrientation == RIGHTPAD) {
                     rpadConnected = true;
-//                    TextView tv = (TextView) ((Activity) context).findViewById(R.id.menu_pad_status);
-//                    tv.setText("Right Pad is Connected!");
                     ((Activity)context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             Toast.makeText(context, "Right Pad connected!", Toast.LENGTH_SHORT).show();
+                            TextView tv = (TextView) ((Activity) context).findViewById(R.id.rpadstatus);
+                            tv.setTextColor(Color.GREEN);
+                            tv.setText("Connected!");
                         }
                     });
 
 
                 }
                 if(lpadConnected && rpadConnected){
-                    final TextView tv = (TextView) ((Activity) context).findViewById(R.id.menu_pad_status);
+
                     ((Activity)context).runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Toast.makeText(context, "Left Pad connected!", Toast.LENGTH_SHORT).show();
-                            tv.setText("Both Pads are Connected!");
-                            tv.setTextColor(Color.parseColor("#008F00"));
+                            Toast.makeText(context, "Both are connected!", Toast.LENGTH_SHORT).show();
+
                         }
                     });
 
@@ -165,33 +176,29 @@ public class BLE_Callback extends BluetoothGattCallback {
     @Override
     public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic){
         //Log.d("DEBUG", "DO SOMETHING");
-        byte[] input = characteristic.getValue();
+        final byte[] input = characteristic.getValue();
         if(padOrientation == LEFTPAD){
             Log.d("DEBUG",  gatt.getDevice().getName() + "  GOT THIS: " + Arrays.toString(input) + " which is " + new String(input));
-            ldata = input;
-            lpad_gotdata = true;
             //check if correct somewhere else!
 
-//            ((Activity)context).runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    TextView txt = (TextView)  ((Activity)context).findViewById(R.id.ble_angle_left);
-//                    txt.setText(String.valueOf(input[0]));
-//                }
-//            });
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TextView txt = (TextView)  ((Activity)context).findViewById(R.id.ble_angle_left);
+                    txt.setText(String.valueOf(input[0]));
+                }
+            });
         }
         else if(padOrientation == RIGHTPAD){
-            rdata = input;
-            rpad_gotdata = true;
             //if(new String(input).equalsIgnoreCase("Correct"))
 
-//            ((Activity)context).runOnUiThread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    //TextView txt = (TextView)  ((Activity)context).findViewById(R.id.ble_angle_right);
-//                    //txt.setText(String.valueOf(input[0]));
-//                }
-//            });
+            ((Activity)context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    TextView txt = (TextView)  ((Activity)context).findViewById(R.id.ble_angle_right);
+                    txt.setText(String.valueOf(input[0]));
+                }
+            });
         }
 
     }
@@ -204,20 +211,5 @@ public class BLE_Callback extends BluetoothGattCallback {
         }
     }
 
-    public static void waitforpads() throws IOException{
-        Log.d("DEBUG", "Waiting for pads!");
-        if(!lpadConnected) {
-            Log.d("DEBUG", "SOMETHING HAPPENED");
-            throw new IOException("PAD isn't connected!");
-        }
-        if(!rpadConnected)
-            throw new IOException("PAD isn't connected!");
-        while(!lpad_gotdata && !rpad_gotdata ){
-            //Log.d("DEBUG", "blah blah");
-            ;} //stall here for a while
 
-        lpad_gotdata = false;
-        rpad_gotdata = false;
-
-    }
 }

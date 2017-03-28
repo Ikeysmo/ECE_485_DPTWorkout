@@ -11,35 +11,6 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ncsu.ece463.project24.dptworkout.CustomizeActivity">
 
-    <TextView
-        android:text="Customize your workout here! Press add button to add new workout!"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:textStyle="normal|bold" />
-
-    <TextView
-        android:text="Name of workout:"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/textView2" />
-
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:ems="10"
-        android:layout_below="@+id/textView"
-        android:layout_alignStart="@+id/button2"
-        android:layout_marginTop="6dp"
-        android:id="@+id/editText2"
-        android:hint="Enter workout name" />
-
     <EditText
         android:layout_width="75dp"
         android:layout_height="wrap_content"
@@ -53,16 +24,6 @@
         android:hint="1"
         android:textAlignment="center"
         android:text="1" />
-
-    <Button
-        android:text="Create Workout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:id="@+id/button2"
-        android:onClick="createWorkout"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 
     <TextView
         android:text="Number of sets"
@@ -94,7 +55,8 @@
         android:layout_alignBaseline="@+id/textView10"
         android:layout_alignBottom="@+id/textView10"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="30dp"/>
+        android:layout_marginEnd="30dp"
+        android:text="10" />
 
     <Spinner
         android:layout_width="match_parent"
@@ -106,11 +68,40 @@
         android:layout_alignParentStart="true" />
 
 
+    <TextView
+        android:text="Customize your workout here! Press add button to add new workout!"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView"
+        android:textStyle="normal|bold"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="Create Workout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button2"
+        android:onClick="createWorkout"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="15dp" />
+
+    <TextView
+        android:text="Created Workout Name:"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/textView2"
+        android:layout_below="@+id/button"
+        android:layout_marginTop="12dp"
+        android:textSize="18sp" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:isScrollContainer="false"
-        android:layout_below="@+id/editText2"
+        android:layout_marginBottom="17dp"
+        android:layout_above="@+id/spinner2"
         android:layout_alignParentStart="true">
 
         <TextView
@@ -122,6 +113,33 @@
             android:textColor="@color/DarkRed" />
     </ScrollView>
 
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_below="@+id/textView"
+        android:layout_alignStart="@+id/textView10"
+        android:textAlignment="center"/>
+
+    <Button
+        android:text="Delete Workout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/button"
+        android:onClick="deleteWorkout"
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentEnd="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText2"
+        android:layout_below="@+id/button"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/button2" />
+
     <Button
         android:text="Add Exercise"
         android:layout_width="wrap_content"
@@ -130,8 +148,8 @@
         android:background="@color/BabyBlue"
         android:elevation="0dp"
         android:onClick="addExercise"
-        android:layout_above="@+id/button2"
-        android:layout_alignEnd="@+id/button2"
-        android:layout_marginEnd="18dp" />
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/textView6"
+        android:layout_marginStart="17dp" />
 
 </RelativeLayout>

@@ -16,9 +16,10 @@ import static android.content.Context.MODE_PRIVATE;
  */
 
 public class Config{
-    public static String IP_ADDRESS;
-    public static boolean audio_enabled = true;
     public static final String DEFAULT_IP_ADDRESS = "192.168.8.2";
+    public static String IP_ADDRESS = DEFAULT_IP_ADDRESS;
+    public static boolean audio_enabled = true;
+
 
     public Config(){
         ;

@@ -22,8 +22,8 @@ public class BLEActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ble);
-
         requestPermissions(new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 4);
+
         if (!getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
             Toast.makeText(this, "BLE not supported!", Toast.LENGTH_SHORT).show();
             finish();
@@ -43,10 +43,24 @@ public class BLEActivity extends AppCompatActivity {
             return;
         }
 
-        BluetoothDevice bd = mBluetoothAdapter.getRemoteDevice("D5:6B:4F:85:08:2E");
-        BluetoothGatt dd = bd.connectGatt(this, false, new BLE_Callback(this, BLE_Callback.RIGHTPAD));
+        BluetoothDevice bd = mBluetoothAdapter.getRemoteDevice("D5:6B:4F:85:08:2E"); //default left?
         BluetoothDevice bd2 = mBluetoothAdapter.getRemoteDevice("DE:9F:F9:F2:2C:80");
-        bd2.connectGatt(this, false, new BLE_Callback(this, BLE_Callback.LEFTPAD));
+
+        if(MenuActivity.rightpad == null) {
+            if(bd.getName().toString().contains("_R"))
+                MenuActivity.rightpad = bd.connectGatt(this, false, new BLE_Simple_Callback(this, BLE_Callback.RIGHTPAD));
+            else if(bd2.getName().toString().contains("_R"))
+                MenuActivity.rightpad = bd2.connectGatt(this, false, new BLE_Simple_Callback(this, BLE_Callback.RIGHTPAD));
+        }
+        //the real OG left pad
+        if(MenuActivity.leftpad == null) {
+           // MenuActivity.leftpad = bd2.connectGatt(this, false, new BLE_Simple_Callback(this, BLE_Callback.LEFTPAD));
+            if(bd.getName().toString().contains("_L"))
+                MenuActivity.leftpad = bd.connectGatt(this, false, new BLE_Simple_Callback(this, BLE_Callback.LEFTPAD));
+            else if(bd2.getName().toString().contains("_L"))
+                MenuActivity.leftpad = bd2.connectGatt(this, false, new BLE_Simple_Callback(this, BLE_Callback.LEFTPAD));
+        }
+        
 
 
     }

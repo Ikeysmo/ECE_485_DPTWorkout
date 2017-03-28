@@ -37,9 +37,12 @@ public class Workout implements Serializable {
     public String description;
     public long date; //or another storage method
     public boolean complete = false;
+    public int totalErrors;
+    public int totaltime;
     public Vector<Exercise> exercises = new Vector<Exercise>();
     public static Vector<Workout> customWorkouts = new Vector<Workout>();
     public static Workout currentWorkout;
+
 
     public Workout(String name, String description, Exercise[] list, long date){
         this.title = name;
@@ -64,6 +67,10 @@ public class Workout implements Serializable {
     public static void addCustomWorkout(Workout wkout){
         customWorkouts.add(wkout);
     }
+    public static void deleteCustomWorkout(int i){
+        customWorkouts.remove(i);
+    }
+
     public static void saveCustomWorkouts(Context context) throws IOException {
         //write to disk
         FileOutputStream fos = context.openFileOutput("Custom Workouts.txt", Context.MODE_PRIVATE);
@@ -71,6 +78,7 @@ public class Workout implements Serializable {
         ouj.writeObject(customWorkouts);
         Log.d("DEBUG", "SAVED WORKOUTS!");
     }
+
 
     public static void loadCustomWorkouts(Context context) throws IOException{
         //load from disk and return listing
@@ -154,6 +162,10 @@ public class Workout implements Serializable {
         oos.writeObject(listworkouts.toArray(new Workout[listworkouts.size()]));
         oos.close();
     }
+
+
+
+
 
     /*Older version that tried to use JSON */
 //    public static void saveWorkout(Workout wk, Context context){ //only save the reoccuring ones!
