@@ -64,7 +64,7 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
         catch (IOException fe){
             //if can't load custom, make custom and save
             Workout ws = new Workout("Intro 101", "Workout to test things", new Exercise[]{
-                    new Exercise("Squats", "Lower body until legs are parallel to ground", 1, 3),
+                    new Exercise("Lateral Raises", "Lower body until legs are parallel to ground", 1, 3),
                     new Exercise("Pushups", "Lay flat on ground. Push until arms are straight, and lower body until arms make right angle. Repeat", 2, 4, true)
             }, new Date().getTime());
 
@@ -104,6 +104,13 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
             return;
         }
         Log.d("DEBUG", "THIS WORK?");
+        BluetoothDevice bd = mBluetoothAdapter.getRemoteDevice("D5:6B:4F:85:08:2E"); //default left?
+        BluetoothDevice bd2 = mBluetoothAdapter.getRemoteDevice("DE:9F:F9:F2:2C:80");
+
+        if(MenuActivity.leftpad == null && MenuActivity.rightpad == null){
+            bd.connectGatt(this, false, new BLE_Callback(this));
+            bd2.connectGatt(this,false, new BLE_Callback(this));
+        }
 
 
     }
@@ -175,6 +182,11 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
         startActivity(intent);
     }
 
+    public void gotoInstructions(View view){
+        Intent intent = new Intent(this, InstructionsActivity.class);
+        startActivity(intent);
+    }
+
     public void tryBLE(View view){
         if(leftpad != null)
             leftpad.disconnect();
@@ -211,23 +223,22 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
         sp.setSelection(selectedPosition);
         Log.d("ERROR", "HEY");
 
-        BluetoothDevice bd = mBluetoothAdapter.getRemoteDevice("D5:6B:4F:85:08:2E"); //default left?
-        BluetoothDevice bd2 = mBluetoothAdapter.getRemoteDevice("DE:9F:F9:F2:2C:80");
-
-        if(rightpad == null) {
-            if(bd.getName().toString().contains("_R"))
+        /*if(rightpad == null) {
+            //bd.getName().toString() != null &&
+            if( bd.getName().toString().contains("_R"))
                 rightpad = bd.connectGatt(this, false, new BLE_Callback(this, BLE_Callback.RIGHTPAD));
-            else if(bd2.getName().toString().contains("_R"))
+            else if(bd2 != null && bd2.getName().toString().contains("_R"))
                 rightpad = bd2.connectGatt(this, false, new BLE_Callback(this, BLE_Callback.RIGHTPAD));
         }
         //the real OG left pad
         if(leftpad == null) {
             // MenuActivity.leftpad = bd2.connectGatt(this, false, new BLE_Simple_Callback(this, BLE_Callback.LEFTPAD));
-            if(bd.getName().toString().contains("_L"))
+            if(bd.getName() != null && bd.getName().toString().contains("_L"))
                 leftpad = bd.connectGatt(this, false, new BLE_Callback(this, BLE_Callback.LEFTPAD));
-            else if(bd2.getName().toString().contains("_L"))
+            else if(bd2.getName() != null && bd2.getName().toString().contains("_L"))
                 leftpad = bd2.connectGatt(this, false, new BLE_Callback(this, BLE_Callback.LEFTPAD));
         }
+        */
 
 //        final Handler handler = new Handler();
 //        handler.postDelayed(new Runnable() {

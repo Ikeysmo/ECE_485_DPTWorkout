@@ -39,6 +39,10 @@ public class BLE_Callback extends BluetoothGattCallback {
         padOrientation = isRight;
         this.context = context;
     }
+
+    public BLE_Callback(Context context){
+        this.context = context;
+    }
     public static boolean isBothConnected(){
         return rpadConnected && lpadConnected;
     }
@@ -50,7 +54,19 @@ public class BLE_Callback extends BluetoothGattCallback {
 
             Log.i(TAG, "Connected to GATT server.");
             gatt.discoverServices();
+            String name = gatt.getDevice().getName();
+            if(name != null){
+                if(name.contains("_L") && MenuActivity.leftpad == null) {
+                    MenuActivity.leftpad = gatt;
+                    padOrientation = LEFTPAD;
+                }
+                else if(name.contains("_R") && MenuActivity.rightpad == null) {
+                    MenuActivity.rightpad = gatt;
+                    padOrientation = RIGHTPAD;
+                }
+            }
         }
+
         else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
 //                mConnectionState = STATE_DISCONNECTED;
             Log.i(TAG, "Disconnected from GATT server.");

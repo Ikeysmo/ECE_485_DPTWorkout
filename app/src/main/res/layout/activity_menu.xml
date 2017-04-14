@@ -84,18 +84,6 @@
         android:layout_marginBottom="21dp" />
 
     <Button
-        android:text="Workout Log"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/workoutLog"
-        android:onClick="workoutLog"
-        android:textSize="14dp"
-        android:layout_marginEnd="43dp"
-        android:layout_alignBottom="@+id/button3"
-        android:layout_toStartOf="@+id/editWorkoutButton"
-        android:layout_marginBottom="27dp" />
-
-    <Button
         android:text="Start Workout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -124,6 +112,26 @@
         android:layout_above="@+id/optionsButton"
         android:layout_alignEnd="@+id/optionsButton"
         android:layout_marginBottom="6dp" />
+
+    <Button
+        android:text="Workout Log"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/workoutLog"
+        android:onClick="workoutLog"
+        android:textSize="14dp"
+        android:layout_above="@+id/button3"
+        android:layout_toStartOf="@+id/imageView" />
+
+    <Button
+        android:text="Instructions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="39dp"
+        android:id="@+id/button9"
+        android:layout_above="@+id/menu_pad_status"
+        android:layout_alignStart="@+id/workoutLog"
+        android:onClick="gotoInstructions" />
 
 
 </RelativeLayout>

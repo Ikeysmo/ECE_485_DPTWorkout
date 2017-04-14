@@ -21,6 +21,8 @@ import java.util.UUID;
  * Created by Ikeys on 3/13/2017.
  */
 
+//angles
+
 public class BLE_Simple_Callback extends BluetoothGattCallback {
     public final static boolean LEFTPAD = false; //constant
     public final static boolean RIGHTPAD = true; //constant

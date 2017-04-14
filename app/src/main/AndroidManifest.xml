@@ -40,6 +40,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".BLEActivity" />
         <activity android:name=".CalibrateActivity" />
+        <activity android:name=".InstructionsActivity" />
+        <activity android:name=".showInstruction"></activity>
     </application>
 
 </manifest>
