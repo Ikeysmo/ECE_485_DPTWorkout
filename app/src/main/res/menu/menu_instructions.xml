@@ -2,9 +2,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="ncsu.ece463.project24.dptworkout.InstructionsActivity">
+
+    <item
+        android:id="@+id/aaction_ble"
+        android:orderInCategory="100"
+        android:title="BLE"
+        app:showAsAction="never" />
+
     <item
         android:id="@+id/action_settings"
-        android:orderInCategory="100"
+        android:orderInCategory="101"
         android:title="@string/action_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/aaction_about"
+        android:orderInCategory="102"
+        android:title="About"
         app:showAsAction="never" />
 </menu>

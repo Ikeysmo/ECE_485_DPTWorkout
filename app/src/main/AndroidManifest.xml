@@ -41,7 +41,8 @@
         <activity android:name=".BLEActivity" />
         <activity android:name=".CalibrateActivity" />
         <activity android:name=".InstructionsActivity" />
-        <activity android:name=".showInstruction"></activity>
+        <activity android:name=".showInstruction" />
+        <activity android:name=".AboutActivity"></activity>
     </application>
 
 </manifest>

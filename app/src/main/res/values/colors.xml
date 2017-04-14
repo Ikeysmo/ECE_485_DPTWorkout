@@ -7,4 +7,7 @@
     <color name="LightBlue">#56beff</color>
     <color name="transparent">#00000000</color>
     <color name="BabyBlue">#008fcc</color>
+    <color name="menuBackgroundColor">#343434</color>
+    <color name="workoutBackground">#5d5d5d</color>
+    <color name="start">#54ff42</color>
 </resources>

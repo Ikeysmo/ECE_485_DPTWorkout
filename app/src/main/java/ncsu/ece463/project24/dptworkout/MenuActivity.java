@@ -18,6 +18,9 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -115,23 +118,46 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_instructions, menu);
+        return true;
+    }
+
     public void workoutLog(View view){ //goes to LOG_ACTIVITY
         Intent intent = new Intent(this, LogActivity.class);
         startActivity(intent);
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        Intent intent;
+        switch(item.getItemId()) {
+            case R.id.action_settings:
+                intent = new Intent(this, OptionsActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.aaction_ble:
+                if(leftpad != null)
+                    leftpad.disconnect();
+                if(rightpad != null)
+                    rightpad.disconnect();
+                intent = new Intent(this, BLEActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.aaction_about:
+                intent = new Intent(this, AboutActivity.class);
+                startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public void editWorkout(View view){
+        Intent intent = new Intent(this, CustomizeActivity.class);
+        startActivity(intent);
+    }
     public void openContinueWorkout(View view){ //goes to WORKOUT_ACTVITY
-//        DialogInterface.OnClickListener dialogClick = new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialogInterface, int i) {
-//                switch(i){
-//                    case DialogInterface.BUTTON_POSITIVE:
-//                        break;
-//                    case DialogInterface.BUTTON_NEGATIVE:
-//                        break;
-//                }
-//            }
-//        };
         final Spinner sp = (Spinner) findViewById(R.id.selectWorkout);
         Workout.currentWorkout = (Workout) sp.getSelectedItem();
         selectedPosition = sp.getSelectedItemPosition();
@@ -172,44 +198,16 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
         return  false;
     }
 
-    public void editWorkout(View view){ //goes to CUSTOMIZE_ACTIVITY
-        Intent intent = new Intent(this, CustomizeActivity.class);
-        startActivity(intent);
-    }
-
-    public void gotoOptions(View view){ //goes to OPTIONS_ACTIVITY
-        Intent intent = new Intent(this, OptionsActivity.class);
-        startActivity(intent);
-    }
 
     public void gotoInstructions(View view){
         Intent intent = new Intent(this, InstructionsActivity.class);
         startActivity(intent);
     }
 
-    public void tryBLE(View view){
-        if(leftpad != null)
-            leftpad.disconnect();
-        if(rightpad != null)
-            rightpad.disconnect();
-
-
-        Intent intent = new Intent(this, BLEActivity.class);
-        startActivity(intent);
-    }
     /* Reads IP address from Config file... assumes only IP address is there for now */
     public String getIPFromConfig() throws IOException, ClassNotFoundException {
         Log.d("DEBUG", "Trying to read the file!");
         Config.loadSettings(this);
-        //FileInputStream fis = openFileInput("config.txt");
-        //ObjectInputStream oij = new ObjectInputStream(fis);
-        //Config con = (Config) oij.readObject();
-       // byte[] innerRd = new byte[64];
-        //int size = fis.read(innerRd);
-        //String rcv = "";
-        //for(int i = 0; i < size; i++)
-            //rcv += (char) innerRd[i];
-
         Log.d("DEBUG", "RESTORED THE SETTINGS!");
         //return rcv;
         return Config.IP_ADDRESS;
@@ -295,7 +293,7 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
         @Override
         public View getView(int position, View convertView, ViewGroup parent){
             TextView label = new TextView(context);
-            label.setTextColor(Color.BLUE);
+            label.setTextColor(Color.LTGRAY);
             label.setTextSize(20);
             label.setText(list[position].title);
             return label;

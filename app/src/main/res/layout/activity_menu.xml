@@ -9,7 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="ncsu.ece463.project24.dptworkout.MenuActivity">
+    tools:context="ncsu.ece463.project24.dptworkout.MenuActivity"
+    android:background="@color/menuBackgroundColor">
 
     <Spinner
         android:layout_width="match_parent"
@@ -28,7 +29,7 @@
         android:id="@+id/textView12"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:textColor="@color/DarkRed"
+        android:textColor="@color/colorAccent"
         android:textStyle="normal|bold"
         android:textSize="14dp" />
 
@@ -40,7 +41,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
         android:textStyle="normal|bold"
-        android:textColor="@android:color/black"
+        android:textColor="?attr/colorButtonNormal"
         android:textSize="14dp" />
 
     <TextView
@@ -61,27 +62,15 @@
         android:layout_height="400px" />
 
     <Button
-        android:text="Options"
+        android:text="Edit Workout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/optionsButton"
-        android:onClick="gotoOptions"
+        android:id="@+id/editWorkoutButton"
+        android:onClick="editWorkout"
         android:textSize="14dp"
-        android:layout_marginBottom="78dp"
-        android:layout_above="@+id/menu_pad_status"
-        android:layout_toEndOf="@+id/imageView" />
-
-    <Button
-        android:text="BLE "
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/button3"
-        android:background="@color/DarkRed"
-        android:onClick="tryBLE"
-        android:layout_above="@+id/menu_pad_status"
-        android:layout_alignStart="@+id/editWorkoutButton"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="21dp" />
+        android:layout_above="@+id/workoutLog"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp" />
 
     <Button
         android:text="Start Workout"
@@ -97,21 +86,9 @@
         android:clickable="false"
         android:elevation="0dp"
         android:textSize="14dp"
-        android:layout_marginEnd="18dp"
-        android:layout_alignBaseline="@+id/editWorkoutButton"
-        android:layout_alignBottom="@+id/editWorkoutButton"
-        android:layout_alignEnd="@+id/workoutLog" />
-
-    <Button
-        android:text="Edit Workout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/editWorkoutButton"
-        android:onClick="editWorkout"
-        android:textSize="14dp"
-        android:layout_above="@+id/optionsButton"
-        android:layout_alignEnd="@+id/optionsButton"
-        android:layout_marginBottom="6dp" />
+        android:layout_marginBottom="23dp"
+        android:layout_above="@+id/editWorkoutButton"
+        android:layout_centerHorizontal="true"/>
 
     <Button
         android:text="Workout Log"
@@ -120,18 +97,9 @@
         android:id="@+id/workoutLog"
         android:onClick="workoutLog"
         android:textSize="14dp"
-        android:layout_above="@+id/button3"
-        android:layout_toStartOf="@+id/imageView" />
-
-    <Button
-        android:text="Instructions"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="39dp"
-        android:id="@+id/button9"
+        android:layout_marginBottom="44dp"
         android:layout_above="@+id/menu_pad_status"
-        android:layout_alignStart="@+id/workoutLog"
-        android:onClick="gotoInstructions" />
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>
