@@ -223,11 +223,12 @@ public class BLE_Callback extends BluetoothGattCallback {
     public static void waitforpads() throws IOException{
         Log.d("DEBUG", "Waiting for pads!");
         if(!lpadConnected) {
-            Log.d("DEBUG", "SOMETHING HAPPENED");
+            Log.d("DEBUG", "Pad isn't connected!");
             throw new IOException("PAD isn't connected!");
         }
         if(!rpadConnected)
-            throw new IOException("PAD isn't connected!");
+            Log.d("DEBUG", "Pad isn't connected!");
+        //throw new IOException("PAD isn't connected!");
         while(!lpad_gotdata && !rpad_gotdata ){
             //Log.d("DEBUG", "blah blah");
             ;} //stall here for a while

@@ -130,12 +130,15 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
         audiofiles[TRY_AGAIN] = MediaPlayer.create(this, R.raw.try_again);
         audiofiles[GOOD_JOB] = MediaPlayer.create(this, R.raw.good_job);
         try { //connect to server
-            Socket clientSocket = new Socket();
-            clientSocket.connect(new InetSocketAddress(Config.IP_ADDRESS, 11000), 500); //see if this works?
-            dos = new DataOutputStream(clientSocket.getOutputStream());
-            dis = new DataInputStream(clientSocket.getInputStream());
-            //dos.write("Bicep Curls".getBytes("UTF-8"));
+            if(!currWorkout.title.equalsIgnoreCase("Pushup Extreme")) {
+                Socket clientSocket = new Socket();
+                clientSocket.connect(new InetSocketAddress(Config.IP_ADDRESS, 11000), 1000); //see if this works?
+                dos = new DataOutputStream(clientSocket.getOutputStream());
+                dis = new DataInputStream(clientSocket.getInputStream());
+                //dos.write("Bicep Curls".getBytes("UTF-8"));
+            }
         } catch (IOException ie) { //was unable to connect. Send error and handle appropriately
+            ie.printStackTrace();
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -173,9 +176,12 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                     while(currSet > 0) { //handle this way
                         BLE_Callback.waitforpads();
                         //data is ready?
+                        if(BLE_Callback.ldata == null || BLE_Callback.rdata == null)
+                            continue;
                         String left_pad_data = new String(BLE_Callback.ldata);
-                        //String right_pad_data = new String(BLE_Callback.rdata);
-                        if(left_pad_data.equalsIgnoreCase("CORRECT"))// && right_pad_data.equalsIgnoreCase("CORRECT"))
+                        String right_pad_data = new String(BLE_Callback.rdata);
+
+                        if(left_pad_data.equalsIgnoreCase("CORRECT") && right_pad_data.equalsIgnoreCase("CORRECT"))
                         {
                             --currReps;
                             if (currReps <= 0)
@@ -301,8 +307,10 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                     }
                 }
             }
-            dos.write("stop".getBytes()); //write stop to prevent kinect to keep sending info
-            dos.close();
+            if(!currWorkout.title.equalsIgnoreCase("Pushup Extreme")) { //replace with Workout.onlyfullPadEnable
+                dos.write("stop".getBytes()); //write stop to prevent kinect to keep sending info
+                dos.close();
+            }
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -328,18 +336,19 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                     TextView repCounter = (TextView) findViewById(R.id.repCounter);
                     repCounter.setText(String.valueOf(0)); //set everything to 0
                     //eventually want to try to reconnect!
-
+                    //return to menu
+//                    Looper.prepare();
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
+                            getApplicationContext().startActivity(intent);
+                        }
+                    }, 2000); //return in 2 seconds
                 }
             });
-            //Looper.prepare();
-//            Handler handler = new Handler();
-//            handler.postDelayed(new Runnable() {
-//                @Override
-//                public void run() {
-//                    Intent intent = new Intent(getApplicationContext(), MenuActivity.class);
-//                    getApplicationContext().startActivity(intent);
-//                }
-//            }, 2000);
+
         } catch (IOException e) {
             Log.d("ERROR", e.toString());
             runOnUiThread(new Runnable() {
