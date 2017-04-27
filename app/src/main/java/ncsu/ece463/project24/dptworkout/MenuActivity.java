@@ -72,7 +72,7 @@ public class MenuActivity extends AppCompatActivity implements AdapterView.OnIte
             }, new Date().getTime());
 
             Workout wx = new Workout("Pushup Extreme", "Test Pushups", new Exercise[]{
-                    new Exercise("Pushups", "Lay flat on ground. Push until arms are straight, and lower body until arms make right angle. Repeat", 1, 30, true)
+                    new Exercise("Pushups", "Lay flat on ground. Push until arms are straight, and lower body until arms make right angle. Repeat", 1, 12, true)
             }, new Date().getTime());
 
             Workout.addCustomWorkout(ws);

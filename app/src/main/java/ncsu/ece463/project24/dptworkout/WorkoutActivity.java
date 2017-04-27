@@ -231,7 +231,7 @@ public class WorkoutActivity extends AppCompatActivity implements Runnable {
                             if (Config.audio_enabled)
                                 audiofiles[TRY_AGAIN].start(); //play try again through speakers
                         }
-                        Log.d("DEBUG", "Would've gotten this: " + new String(BLE_Callback.ldata));
+                        //Log.d("DEBUG", "Would've gotten this: " + new String(BLE_Callback.ldata));
                     }
                 } //handle via pads
                 else { //handle via kinect
